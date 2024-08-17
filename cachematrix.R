@@ -28,7 +28,18 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Write a short comment describing this function
-
+# Calculates the inverse of the special "matrix" created with
+# makeCacheMatrix function, makes use of cashed values
+# ASSUMPTION: x matrix value is invertible square matrix
 cacheSolve <- function(x, ...) {
-  ## Return a matrix that is the inverse of 'x'
+    ## Return a matrix that is the inverse of 'x'
+    inv <- x$getInverse()
+    if ( !is.null(inv) ) {
+        message("getting cached data")
+        return(inv)
+    }
+    data <- x$get()
+    inv <- solve(data, ...)
+    x$setInverse(inv)
+    inv
 }
